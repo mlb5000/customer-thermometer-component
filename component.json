@@ -1,50 +1,23 @@
 {
-	"title": "Zendesk",
-	"description": "elastic.io integration component to communicate with the Zendesk API",
-	"env": ["ZENDESK_CLIENT_ID", "ZENDESK_CLIENT_SECRET"],
-	"credentials": {
-		"fields": {
-			"subdomain": {
-				"label": "Subdomain",
-				"viewClass": "TextFieldView",
-				"required": true,
-				"prefix": "https://",
-				"suffix": ".zendesk.com",
-				"prompt": "subdomain"
-			},
-			"oauth": {
-				"label": "Authentication",
-				"viewClass": "OAuthFieldView",
-				"required": true
-			}
-		},
-		"oauth2": {
-			"client_id": "{{ZENDESK_CLIENT_ID}}",
-			"client_secret": "{{ZENDESK_CLIENT_SECRET}}",
-			"auth_uri": "https://{{subdomain}}.zendesk.com/oauth/authorizations/new?scope=tickets%3Aread%20tickets%3Awrite",
-			"token_uri": "https://{{subdomain}}.zendesk.com/oauth/tokens"
-		}
-	},
-	"actions": {
-		"createTicket": {
-			"title": "Create ticket",
-			"main": "./lib/actions/createTicket.js",
-			"description": "Creates a new Ticket in Zendesk. You may configure ticket description, severity and other fields. Optionally you may also configure requester's e-mail and name",
-			"metadata": {
-				"in": "./lib/schemas/createTicket.in.json",
-				"out": "./lib/schemas/createTicket.out.json"
-			}
-		}
-	},
-	"triggers": {
-		"readTickets": {
-			"title": "Read Tickets",
-			"main": "./lib/triggers/readTickets.js",
-			"type": "polling",
-			"description": "Reads tickets from a Zendesk account to shuttle into another system",
-			"metadata": {
-				"out": "./lib/schemas/readTickets.out.json"
-			}
-		}
-	}
+  "title": "Customer Thermometer",
+  "description": "elastic.io integration component to communicate with the Customer Thermometer API",
+  "env": ["CUSTOMER_THERMOMETER_API_KEY"],
+  "credentials": {
+    "fields": {
+      "apiKey": {
+        "label": "API Key",
+        "viewClass": "TextFieldView",
+        "required": true,
+        "prompt": "API Key"
+      }
+    }
+  },
+  "triggers": {
+    "readData": {
+      "title": "Read from the Data Return API",
+      "main": "./lib/triggers/readData.js",
+      "type": "polling",
+      "description": "Reads all entries in the CT Data API to shuttle into another system"
+    }
+  }
 }
